@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="`/meal/${this.id}`">
+  <router-link :to="`/meal/${id}`">
     <div class="card">
       <div v-if="image" class="card-image">
         <figure class="image is-4by3">
