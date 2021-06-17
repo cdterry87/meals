@@ -23,7 +23,7 @@ const getById = async id => {
 const searchByName = async name => {
   try {
     const response = await axios.get(`${API_URL}/search.php?s=${name}`)
-    return response.data.drinks || []
+    return response.data.meals || []
   } catch (error) {
     console.error(error)
   }
