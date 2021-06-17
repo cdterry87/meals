@@ -42,6 +42,6 @@ Now is also a good time to go over custom filters and directives:
 - Open the Meal view and add a data property to store the meal JSON
 - In created hook, call the API endpoint to pull meal by ID from props and set the meal data property to result
 - Add computed properties for ingredients and tags
-- Create a MealTemplate component
-  - Add a slot for the sidebar
-  - Add a slot for content
+- Demonstrate emitting an event on the SearchResult component to the SearchForm to display a message
+- Demonstrate conditional classes on SearchResult component to show a different background color for favorites
+- Demonstrate slots

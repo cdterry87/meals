@@ -1,5 +1,10 @@
 <template>
   <div>
+    <div
+      v-if="message"
+      class="notification is-success is-light"
+      v-html="message"
+    />
     <form @submit.prevent="onSubmit">
       <div class="field has-addons">
         <div class="control is-expanded">
@@ -25,6 +30,7 @@
           :id="result.idMeal"
           :title="result.strMeal"
           :image="result.strMealThumb"
+          @onFavorite="onFavorite"
         />
       </div>
       <div v-else class="mt-5">
@@ -48,6 +54,7 @@ export default {
     return {
       search: '',
       searchResults: [],
+      message: '',
       hasSearchBeenPerformed: false
     }
   },
@@ -67,6 +74,9 @@ export default {
     async onSubmit() {
       this.hasSearchBeenPerformed = true
       this.searchResults = await apiService.searchByName(this.search)
+    },
+    onFavorite(name) {
+      this.message = `<strong>${name}</strong> has been added to favorites.`
     }
   }
 }

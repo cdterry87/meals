@@ -1,5 +1,5 @@
 <template>
-  <article class="media">
+  <article class="media" :class="{ 'has-background-warning': isFavorite }">
     <figure v-if="image" class="media-left">
       <p class="image is-64x64">
         <img :src="image" :alt="title" />
@@ -13,7 +13,7 @@
         <Button v-bind="viewButton" />
       </nav>
     </div>
-    <div class="media-right">
+    <div class="media-right" @click="onFavoriteClick">
       <i class="far fa-star is-clickable"></i>
     </div>
   </article>
@@ -53,6 +53,12 @@ export default {
         label: 'View Meal',
         link: `/meal/${this.id}`
       }
+    }
+  },
+  methods: {
+    onFavoriteClick() {
+      this.isFavorite = true
+      this.$emit('onFavorite', this.title)
     }
   }
 }
