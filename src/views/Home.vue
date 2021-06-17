@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <div class="columns">
-      <div class="column is-two-thirds">Home page</div>
+      <div class="column is-two-thirds">
+        <SearchForm />
+      </div>
       <div class="column is-one-third">
         <Button v-bind="favoritesLink" />
         <RandomMeal />
@@ -13,12 +15,14 @@
 <script>
 import Button from '../components/Button'
 import RandomMeal from '../components/RandomMeal'
+import SearchForm from '../components/SearchForm'
 
 export default {
   name: 'Home',
   components: {
     Button,
-    RandomMeal
+    RandomMeal,
+    SearchForm
   },
   computed: {
     favoritesLink() {

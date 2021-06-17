@@ -9,9 +9,9 @@
       <div class="card-content">
         <div class="media">
           <div class="media-content">
-            <p class="title is-4 has-text-centered">{{ title }}</p>
+            <p class="title is-4 has-text-centered">{{ title | uppercase }}</p>
             <p v-if="subtitle" class="subtitle is-7 has-text-centered">
-              ({{ subtitle }})
+              ({{ subtitle | uppercase }})
             </p>
           </div>
         </div>
