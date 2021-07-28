@@ -19,7 +19,6 @@ Note: For the sake of time, I added the remaining API endpoints, some styling fo
   - Also explain you can only have one root element
   - Also explain interpolation
 - Create a Button component that can be either a `router-link` or `button` and pass label, link, classes, and icon as props. For Favorites (link) and Random (button)
-- Create uppercase filter for formatting text and apply it to Card and Button
 - Create a RandomMeal component using the Card and Button component and take logic from Home. Then import RandomMeal component into Home and use it there
 - Then show you can reuse that RandomMeal component on the NotFound page
 
@@ -31,13 +30,18 @@ Note: For the sake of time, I added the remaining API endpoints, some styling fo
   - Import the apiService and call searchByName passing this.search to it
 - Create a SearchResult component to demonstrate `v-for` and the importance of `:key`. Pass the title and image as props and apply the uppercase filter to the text
 - Add a "View" button that links to the `meal/:id` page
+
+```
+Now is also a good time to go over custom filters and directives:
+- Create uppercase filter for formatting text and apply it to Card and Button
 - Create a custom directive for custom javascript actions to autofocus the input field
+```
 
 ## Section 4
 
 - Open the Meal view and add a data property to store the meal JSON
 - In created hook, call the API endpoint to pull meal by ID from props and set the meal data property to result
 - Add computed properties for ingredients and tags
-- Create a MealTemplate component
-  - Add a slot for the sidebar
-  - Add a slot for content
+- Demonstrate emitting an event on the SearchResult component to the SearchForm to display a message
+- Demonstrate conditional classes on SearchResult component to show a different background color for favorites
+- Demonstrate slots
