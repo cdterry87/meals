@@ -1,6 +1,6 @@
 # Training Agenda
 
-## Section 1
+## Section 1 - Setup and creating out first component
 
 - Vue app setup and API info
 - Created routes and the endpoints to hit the API
@@ -11,7 +11,7 @@
 Note: For the sake of time, I added the remaining API endpoints, some styling for the page layout, and a Header and Footer component.
 ```
 
-## Section 2
+## Section 2 - Creataing components for reusability
 
 - Create a new '\*' route and a NotFound page
 - Create a Card component and pass `id, title, subtitle, and image` as props
@@ -22,7 +22,7 @@ Note: For the sake of time, I added the remaining API endpoints, some styling fo
 - Create a RandomMeal component using the Card and Button component and take logic from Home. Then import RandomMeal component into Home and use it there
 - Then show you can reuse that RandomMeal component on the NotFound page
 
-## Section 3
+## Section 3 - Creating the Search component
 
 - Create SearchForm component
   - Form with `@submit.prevent="onSubmit"`
@@ -37,7 +37,7 @@ Now is also a good time to go over custom filters and directives:
 - Create a custom directive for custom javascript actions to autofocus the input field
 ```
 
-## Section 4
+## Section 4 - Creating the View page
 
 - Open the Meal view and add a data property to store the meal JSON
 - In created hook, call the API endpoint to pull meal by ID from props and set the meal data property to result
@@ -45,3 +45,21 @@ Now is also a good time to go over custom filters and directives:
 - Demonstrate emitting an event on the SearchResult component to the SearchForm to display a message
 - Demonstrate conditional classes on SearchResult component to show a different background color for favorites
 - Demonstrate slots
+
+## Section 5 - Managing State with Vuex
+
+- Explain Vuex - state management that keeps your important data values in one place so it can be shared and persisted across all components at once
+- Go into store/index.js and explain what it looks like and then change it to the "modules" format which is better if you have multiple kinds of state (we have both "search" and "favorites" state so we want to keep them separate)
+  - Note: we are importing `vuex-persistedstate` which I believe uses localstorage to persist the full state object even after brower refresh
+- Starting with the search form
+  - Explain the problem - when we search then click on a result to go to the View page, when we come back the search results are gone and we want the results to persist when navigating to other pages
+  - SearchForm currently handles the API logic when submitting the form, but this logic can be extracted into state
+- Create the store/search.js file and create the four constants and export default
+  - state, getters, actions, mutations
+  - export default with `namespaced: true` because we want it to be namespaced under `search`
+- When the search state is fully setup, return to SearchForm and import the new state, getters, and actions and implement them
+  - Explain that you can also use `import { mapState } from 'vuex'` and use mapState like this `...mapState('search', ['searchResults'])`. This is used if you're importing from more than one state, or if you just prefer manually specifying the namespace, which is "search" here.
+  - Remove the API related declarations and searchResults
+  - Call the action in the submit method
+  - Use the getter instead of the searchResults.length declaration in the template and show a new message with the search results count
+  - 

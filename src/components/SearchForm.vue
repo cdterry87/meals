@@ -23,7 +23,8 @@
       </div>
     </form>
     <div class="mt-5">
-      <div v-if="searchResults.length">
+      <div v-if="searchResultsCount">
+        <p class="my-5 has-text-weight-bold">We found {{ searchResultsCount }} results!</p>
         <SearchResult
           v-for="(result, index) in searchResults"
           :key="index"
@@ -42,8 +43,10 @@
 </template>
 
 <script>
-import { apiService } from '../services/api'
+import { createNamespacedHelpers } from 'vuex'
 import SearchResult from './SearchResult'
+
+const { mapState, mapGetters, mapActions } = createNamespacedHelpers('search')
 
 export default {
   name: 'SearchForm',
@@ -53,12 +56,13 @@ export default {
   data() {
     return {
       search: '',
-      searchResults: [],
       message: '',
       hasSearchBeenPerformed: false
     }
   },
   computed: {
+    ...mapState(['searchResults']),
+    ...mapGetters(['searchResultsCount']),
     emptySearchTitle() {
       return this.hasSearchBeenPerformed
         ? 'Sorry, your search returned no results.'
@@ -71,9 +75,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['runSearch']),
     async onSubmit() {
       this.hasSearchBeenPerformed = true
-      this.searchResults = await apiService.searchByName(this.search)
+      this.runSearch(this.search)
     },
     onFavorite(name) {
       this.message = `<strong>${name}</strong> has been added to favorites.`
