@@ -2,7 +2,7 @@
   <div>
     <div
       v-if="message"
-      class="notification is-success is-light"
+      class="notification is-info is-light"
       v-html="message"
     />
     <form @submit.prevent="onSubmit">
@@ -24,12 +24,15 @@
     </form>
     <div class="mt-5">
       <div v-if="searchResultsCount">
-        <p class="my-5 has-text-weight-bold">We found {{ searchResultsCount }} results!</p>
+        <p class="my-5 has-text-weight-bold">
+          We found {{ searchResultsCount }} results!
+        </p>
         <SearchResult
           v-for="(result, index) in searchResults"
           :key="index"
           :id="result.idMeal"
           :title="result.strMeal"
+          :subtitle="result.strCategory"
           :image="result.strMealThumb"
           @onFavorite="onFavorite"
         />
@@ -80,8 +83,10 @@ export default {
       this.hasSearchBeenPerformed = true
       this.runSearch(this.search)
     },
-    onFavorite(name) {
-      this.message = `<strong>${name}</strong> has been added to favorites.`
+    onFavorite(payload) {
+      const { name, isFavorite } = payload
+      const status = isFavorite ? 'added to' : 'removed from'
+      this.message = `<strong>${name}</strong> was ${status} your favorites!`
     }
   }
 }

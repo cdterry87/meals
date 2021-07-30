@@ -1,5 +1,5 @@
 <template>
-  <article class="media" :class="{ 'has-background-warning': isFavorite }">
+  <article class="media">
     <figure v-if="image" class="media-left">
       <p class="image is-64x64">
         <img :src="image" :alt="title" />
@@ -14,13 +14,21 @@
       </nav>
     </div>
     <div class="media-right" @click="onFavoriteClick">
-      <i class="far fa-star is-clickable"></i>
+      <span v-if="isFavorite" key="fas">
+        <i v-show="isFavorite" class="fas fa-star is-clickable"></i>
+      </span>
+      <span v-else key="far">
+        <i v-show="!isFavorite" class="far fa-star is-clickable"></i>
+      </span>
     </div>
   </article>
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex'
 import Button from './Button'
+
+const { mapState, mapActions } = createNamespacedHelpers('favorites')
 
 export default {
   name: 'SearchResult',
@@ -36,17 +44,23 @@ export default {
       type: String,
       required: true
     },
+    subtitle: {
+      type: String,
+      required: true
+    },
     image: {
       type: String,
       default: ''
     }
   },
-  data() {
-    return {
-      isFavorite: false
-    }
-  },
   computed: {
+    ...mapState(['favorites']),
+    isFavorite() {
+      const favoriteIndex = this.favorites.findIndex(favorite => {
+        return favorite.id === this.id
+      })
+      return favoriteIndex > -1 ? true : false
+    },
     viewButton() {
       return {
         classes: 'button is-info is-small',
@@ -56,9 +70,21 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['addFavorite', 'removeFavorite']),
     onFavoriteClick() {
-      this.isFavorite = true
-      this.$emit('onFavorite', this.title)
+      this.isFavorite
+        ? this.removeFavorite(this.id)
+        : this.addFavorite({
+            id: this.id,
+            title: this.title,
+            subtitle: this.subtitle,
+            image: this.image
+          })
+
+      this.$emit('onFavorite', {
+        name: this.title,
+        isFavorite: this.isFavorite
+      })
     }
   }
 }

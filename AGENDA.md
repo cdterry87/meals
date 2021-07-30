@@ -62,4 +62,18 @@ Now is also a good time to go over custom filters and directives:
   - Remove the API related declarations and searchResults
   - Call the action in the submit method
   - Use the getter instead of the searchResults.length declaration in the template and show a new message with the search results count
-  - 
+
+## Section 6 - Integrating state logic for keeping track of favorites
+
+- Create store/favorites.js and add it to store/index.js
+- Create const variables for state, getters, actions, and mutations
+  - state: favorites: []
+  - getters: favoritesCount
+  - actions: getFavorites, addFavorite, removeFavorite
+  - mutations: GET_FAVORITES, STORE_FAVORITES, ADD_FAVORITE, REMOVE_FAVORITE
+  - export default
+- Go to SearchResult component and integrate the favorites logic from state
+  - This will also require some minor adjustments to the SearchForm component
+- Copy/paste the Favorites view to see the full Favorites page
+- Add the favorites store logic to the Meal view component
+  - BONUS: Create a mixin/utility function for the isFavorite computed property since it is duplicated in Meal and SearchResult

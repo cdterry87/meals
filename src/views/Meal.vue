@@ -43,9 +43,12 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex'
 import { apiService } from '../services/api'
 import Button from '../components/Button'
 import Card from '../components/Card'
+
+const { mapState, mapActions } = createNamespacedHelpers('favorites')
 
 export default {
   name: 'Meal',
@@ -70,6 +73,7 @@ export default {
     this.isLoading = false
   },
   computed: {
+    ...mapState(['favorites']),
     ingredients() {
       const ingredients = []
 
@@ -106,11 +110,25 @@ export default {
         label: this.isFavorite ? 'Remove Favorite' : 'Add Favorite',
         icon: this.isFavorite ? 'fas fa-minus-circle' : 'fas fa-plus-circle'
       }
+    },
+    isFavorite() {
+      const favoriteIndex = this.favorites.findIndex(favorite => {
+        return favorite.id === this.id
+      })
+      return favoriteIndex > -1 ? true : false
     }
   },
   methods: {
+    ...mapActions(['addFavorite', 'removeFavorite']),
     onFavoriteClick() {
-      console.log('onFavoriteClick')
+      this.isFavorite
+        ? this.removeFavorite(this.id)
+        : this.addFavorite({
+            id: this.id,
+            title: this.meal.strMeal,
+            subtitle: this.meal.strCategory,
+            image: this.meal.strMealThumb
+          })
     }
   }
 }
