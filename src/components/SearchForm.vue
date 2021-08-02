@@ -82,6 +82,7 @@ export default {
     async onSubmit() {
       this.hasSearchBeenPerformed = true
       this.runSearch(this.search)
+      this.$emit('onSearch')
     },
     onFavorite(payload) {
       const { name, isFavorite } = payload
