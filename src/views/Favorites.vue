@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="title is-4 has-text-centered my-4">
+    <h2 v-if="favorites.length" class="title is-4 has-text-centered my-4">
       All <span data-testid="total-favorites">{{ totalFavorites }}</span> of
       your favorites in one place!
     </h2>
