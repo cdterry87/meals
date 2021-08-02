@@ -13,7 +13,7 @@ const store = new Vuex.Store({
     search: {
       namespaced: true,
       state: {
-        results: []
+        searchResults: []
       },
       getters: {
         searchResultsCount: () => 0

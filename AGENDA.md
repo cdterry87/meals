@@ -76,4 +76,15 @@ Now is also a good time to go over custom filters and directives:
   - This will also require some minor adjustments to the SearchForm component
 - Copy/paste the Favorites view to see the full Favorites page
 - Add the favorites store logic to the Meal view component
+
   - BONUS: Create a mixin/utility function for the isFavorite computed property since it is duplicated in Meal and SearchResult
+
+## Section 7 - Writing tests
+
+- Show the script in the package.json to run tests and modify it so it can be run as `npm run test`
+- Create the "easy" home.spec.js test. Explain the difference between `shallowMount` and `mount`
+  - shallowMount will make it easier because it only loads that component and none of the child components
+  - mount loads that component and all of its child components. This is preferred to test components in their entirity but sometimes it is preferable to just use shallowMount to test a component in isolation.
+- Create the button test to demonstrate setting props
+- Create a search-form test to show how to set a form value, trigger a form submit/button click, and checking for an emit event
+  - ensure if you check for an emit event that you add the emit event to the SearchForm component
